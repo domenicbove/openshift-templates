@@ -1,11 +1,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: mplat-dsm-build-deploy-nonssl-template
-  annotations:
-    description: FIS template for creating a Spring Boot app built with maven
-    iconClass: icon-jboss
-    tags: fis,instant-app,springboot,maven,java
+  name: deploy-service-route-template
 objects:
 - kind: Service
   apiVersion: v1

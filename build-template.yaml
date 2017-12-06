@@ -1,10 +1,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: mplat-dsm-build-deploy-template
-  annotations:
-    description: Basic buildconfig and imagestream template
-    iconClass: icon-jboss
+  name: build-deploy-template
 objects:
 - apiVersion: v1
   kind: ImageStream
