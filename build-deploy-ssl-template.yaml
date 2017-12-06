@@ -1,7 +1,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: mplat-dsm-feature-template
+  name: build-deploy-ssl-template
 objects:
 - apiVersion: v1
   kind: Service

@@ -1,0 +1,40 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: route-split-template
+objects:
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+    annotations:
+      haproxy.router.openshift.io/balance: roundrobin
+  spec:
+    port:
+      targetPort: 8080-tcp
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: ${APPLICATION_NAME}
+      weight: 90
+    alternateBackends:
+    - kind: Service
+      name: ${MINOR_SERVICE_NAME}
+      weight: 10
+  wildcardPolicy: None
+parameters:
+- name: APPLICATION_NAME
+  description: The name for the application.
+  displayName: Application name
+  required: true
+- name: MAJOR_SERVICE_NAME
+  description: Service to connect to
+  displayName: Service name
+  required: true
+- name: MINOR_SERVICE_NAME
+  description: Service to connect to
+  displayName: Service name
+  required: true
