@@ -72,6 +72,14 @@ objects:
                 fieldPath: metadata.namespace
           name: "${APPLICATION_NAME}"
           image: "${APPLICATION_NAME}"
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
           ports:
           - containerPort: 8080
             protocol: TCP
@@ -79,11 +87,6 @@ objects:
           - containerPort: 8778
             protocol: TCP
             name: jolokia
-          livenessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 30
-            timeoutSeconds: 1
           resources: {}
     triggers:
     - type: ImageChange
