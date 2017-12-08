@@ -3,8 +3,36 @@ kind: Template
 metadata:
   name: image-inspector-pod-template
 objects:
-- apiVersion: v1
-  kind: Pod
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${POD_NAME}
+    name: ${POD_NAME}
+  spec:
+    port:
+      targetPort: 8080-tcp
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: ${POD_NAME}
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${POD_NAME}"
+    labels:
+      app: "${POD_NAME}"
+  spec:
+   ports:
+   - name: 8080-tcp
+     protocol: TCP
+     port: 8080
+     targetPort: 8080
+   selector:
+     app: "${POD_NAME}"
+- kind: Pod
+  apiVersion: v1
   metadata:
     annotations:
       openshift.io/scc: privileged
